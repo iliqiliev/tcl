@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  Build:
     # convert this to a matrix if builds differ between platforms
     runs-on: ${{ matrix.os }}
     strategy:
@@ -23,3 +23,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Building
         run: sh build.sh
+      - name: Quick test
+        run: sh -c 'echo "puts hello_world; exit;" | ./sasfit-tcl/bin/tclsh8.4'
