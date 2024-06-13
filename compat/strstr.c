@@ -38,10 +38,10 @@
 
 char *
 strstr(string, substring)
-    register char *string;	/* String to search. */
-    char *substring;		/* Substring to try to find in string. */
+    register CONST char *string;	/* String to search. */
+    CONST char *substring;		/* Substring to try to find in string. */
 {
-    register char *a, *b;
+    register CONST char *a, *b;
 
     /* First scan quickly through the two strings looking for a
      * single-character match.  When it's found, then compare the
