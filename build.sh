@@ -10,10 +10,10 @@ mode="$1"
 arch="$(uname -m)"
 plat="$(uname -s)"
 conf=
-case "$plat" in
-    Linux)  plat=linux;  conf=unix/configure;;
-    Darwin) plat=macos;  conf=macosx/configure;;
-    Win32)  plat=windows;conf=win/configure;; # FIXME
+case "$(echo $plat | cut -d_ -f1)" in
+    Linux)   plat=linux;  conf=unix/configure;;
+    Darwin)  plat=macos;  conf=macosx/configure;;
+    MINGW64) plat=windows;conf=win/configure;; # FIXME
 esac
 
 # path of this script
