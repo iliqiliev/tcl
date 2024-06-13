@@ -8,9 +8,9 @@ set -x
 name="sasfit-tcl"
 mode="$1"
 arch="$(uname -m)"
-plat=
+plat="$(uname -s)"
 conf=
-case "$(uname -s)" in
+case "$plat" in
     Linux)  plat=linux;  conf=unix/configure;;
     Darwin) plat=macos;  conf=macosx/configure;;
     Win32)  plat=windows;conf=win/configure;; # FIXME
