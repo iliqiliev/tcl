@@ -139,7 +139,8 @@ typedef struct EXCEPTION_REGISTRATION {
     void* ebp;
     void* esp;
     int status;
-} EXCEPTION_REGISTRATION;
+} EXCEPTION_REGISTRATION_2;
+#define EXCEPTION_REGISTRATION EXCEPTION_REGISTRATION_2
 
 #endif
 
