@@ -21,7 +21,33 @@ jobs:
     steps:
       - name: Checking out the repo
         uses: actions/checkout@v4
+
       - name: Building
         run: sh build.sh
+
       - name: Quick test
         run: sh -c 'echo "puts hello_world; exit;" | ./sasfit-tcl/bin/tclsh8.4'
+
+      - name: Upload package for publishing job
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.os }}
+          path: |
+              *.tar.xz
+
+  Publish:
+    needs: [Build]
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Download package artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          merge-multiple: true
+          path: dist
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: dist/*.tar.xz
