@@ -22,6 +22,12 @@ jobs:
       - name: Checking out the repo
         uses: actions/checkout@v4
 
+      - name: Install extra packages on Windows
+        if: startsWith(${{ matrix.os }}, 'windows')
+        run: |
+          set "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
+          sh -lc "pacman -S --noconfirm make diffutils patch mingw-w64-x86_64-gcc"
+
       - name: Building
         run: sh build.sh
 
