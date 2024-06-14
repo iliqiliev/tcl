@@ -25,9 +25,10 @@ jobs:
       - name: Setup MSYS2 in Windows
         if: ${{ startsWith(matrix.os, 'windows') }}
         uses: msys2/setup-msys2@v2
+        # https://github.com/msys2/setup-msys2?tab=readme-ov-file#build-matrix
         with:
-          msystem: UCRT64
-          pacboy: make diffutils patch gcc:p
+          msystem: CLANG64
+          pacboy: make diffutils patch # gcc:p
 
       - name: Building in Windows
         if: ${{ startsWith(matrix.os, 'windows') }}
