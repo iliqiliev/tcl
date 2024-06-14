@@ -38,6 +38,11 @@ jobs:
           which make
           sh build.sh
 
+      - name: Upload log
+        uses: actions/upload-artifact@v4
+        with:
+          path: config.log
+
       - name: Building
         if: ${{ ! startsWith(matrix.os, 'windows') }}
         run: sh build.sh
