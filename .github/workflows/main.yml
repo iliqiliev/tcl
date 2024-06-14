@@ -14,25 +14,31 @@ on:
 jobs:
   Build:
     # convert this to a matrix if builds differ between platforms
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: ['windows-latest']
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checking out the repo
         uses: actions/checkout@v4
 
-      - name: Install extra packages on Windows
+      - name: Setup MSYS2 in Windows
         if: startsWith(${{ matrix.os }}, 'windows')
-        shell: cmd
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+
+      - name: Building in Windows
+        if: startsWith(${{ matrix.os }}, 'windows')
+        shell: msys2 {0}
         run: |
-          set "PATH=C:\msys64\MINGW64\bin;C:\msys64\usr\bin;%PATH%"
-          echo %PATH%
-          pacman -Q
-          :: pacman -S --noconfirm make diffutils patch mingw-w64-x86_64-gcc
+          uname -a
           which sed
+          which make
+          sh build.sh
 
       - name: Building
+        if: ! startsWith(${{ matrix.os }}, 'windows')
         run: sh build.sh
 
       - name: Quick test
