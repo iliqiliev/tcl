@@ -46,7 +46,9 @@ jobs:
         run: sh build.sh
 
       - name: Quick test
-        run: sh -c 'echo "puts hello_world; exit;" | ./sasfit-tcl/bin/tclsh8.4'
+        run: |
+            TCLSH=$(find ./sasfit-tcl/bin/ -type f -name 'tclsh8.4*')
+            sh -c "echo \"puts hello_world; exit;\" | $TCLSH"
 
       - name: Upload package for publishing job
         uses: actions/upload-artifact@v4
