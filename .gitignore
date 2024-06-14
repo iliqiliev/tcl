@@ -1,2 +1,8 @@
 *.o
 *.a
+config.*
+dltest
+Makefile
+tclsh
+tclConfig.sh
+sasfit-tcl*
