@@ -6,12 +6,8 @@ set -e
 set -x
 
 uname -a
-which make
-which gcc
-which ld
-which ar
-which ranlib
-which windres
+for bin in make gcc ld ar ranlib windres; do which $bin; done
+gcc --version
 
 name="sasfit-tcl"
 mode="$1"
