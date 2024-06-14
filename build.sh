@@ -6,7 +6,7 @@ set -e
 set -x
 
 uname -a
-for bin in make gcc ld ar ranlib windres; do which $bin || true; done
+for bin in make gcc clang ld ar ranlib windres; do which $bin || true; done
 gcc --version
 
 name="sasfit-tcl"
