@@ -27,7 +27,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
-          pacboy: make gcc
+          pacboy: make gcc diffutils patch
 
       - name: Building in Windows
         if: ${{ startsWith(matrix.os, 'windows') }}
