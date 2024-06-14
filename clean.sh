@@ -13,3 +13,4 @@ scriptdir="$(cd "$(dirname "$0")" && pwd -P)"
 rm -Rf "$scriptdir/$name"*
 
 make distclean
+rm -f config.cache config.log confdefs.h
