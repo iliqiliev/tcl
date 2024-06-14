@@ -5,6 +5,8 @@ set -e
 # show commands
 set -x
 
+which sed
+
 name="sasfit-tcl"
 mode="$1"
 arch="$(uname -m)"

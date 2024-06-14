@@ -29,7 +29,8 @@ jobs:
           set "PATH=C:\msys64\MINGW64\bin;C:\msys64\usr\bin;%PATH%"
           echo %PATH%
           pacman -Q
-          :: sh -lc "pacman -S --noconfirm make diffutils patch mingw-w64-x86_64-gcc"
+          pacman -S --noconfirm make diffutils patch mingw-w64-x86_64-gcc
+          which sed
 
       - name: Building
         run: sh build.sh
