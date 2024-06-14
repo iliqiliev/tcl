@@ -5,8 +5,13 @@ set -e
 # show commands
 set -x
 
-which sed
+uname -a
 which make
+which gcc
+which ld
+which ar
+which ranlib
+which windres
 
 name="sasfit-tcl"
 mode="$1"

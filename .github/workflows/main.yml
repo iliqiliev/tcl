@@ -33,18 +33,6 @@ jobs:
         if: ${{ startsWith(matrix.os, 'windows') }}
         shell: msys2 {0}
         run: |
-          uname -a
-          which sed
-          which make
-          which gcc
-          which ld
-          which ar
-          which ranlib
-          which windres
-          pacman -Ss make
-          pacman -Ss gcc
-          pacman -Ss binutils
-          pacman -Ss windres
           sh build.sh
 
       - name: Upload log
