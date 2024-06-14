@@ -30,7 +30,7 @@ if [ "$mode" = "debug" ]; then
     mode="_$mode"
 fi
 
-sh "$conf" --prefix="$outdir" --enable-static --disable-shared --enable-64bit --with-pic $DBG_ARGS
+sh -x "$conf" --prefix="$outdir" --enable-static --disable-shared --enable-64bit --with-pic $DBG_ARGS
 
 make -j 4
 
