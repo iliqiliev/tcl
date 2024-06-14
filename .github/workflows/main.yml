@@ -39,6 +39,7 @@ jobs:
           sh build.sh
 
       - name: Upload log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           path: config.log
