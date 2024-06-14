@@ -24,11 +24,13 @@ jobs:
 
       - name: Install extra packages on Windows
         if: startsWith(${{ matrix.os }}, 'windows')
+        shell: cmd
         run: |
           set "PATH=C:\msys64\MINGW64\bin;C:\msys64\usr\bin;%PATH%"
-          echo $PATH
-          echo $SHELL
-          sh -lc "which sh"
+          echo %PATH%
+          sh -lxc "which sh"
+          sh -lxc "echo $SHELL"
+          sh -lxc "echo $PATH"
           #sh -lc "pacman -S --noconfirm make diffutils patch mingw-w64-x86_64-gcc"
 
       - name: Building
