@@ -918,6 +918,7 @@ else
 all:
 	@echo 'ac_maketemp="${MAKE}"'
 EOF
+cat conftestmake
 # GNU make sometimes prints "make[1]: Entering...", which would confuse us.
 eval `${MAKE-make} -f conftestmake 2>/dev/null | grep temp=`
 if test -n "$ac_maketemp"; then
