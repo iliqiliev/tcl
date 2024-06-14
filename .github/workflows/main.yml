@@ -27,7 +27,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
-          pacboy: make:p gcc:p diffutils:p patch:p
+          pacboy: make diffutils patch gcc:p
 
       - name: Building in Windows
         if: ${{ startsWith(matrix.os, 'windows') }}
@@ -41,6 +41,10 @@ jobs:
           which ar
           which ranlib
           which windres
+          pacman -Ss make
+          pacman -Ss gcc
+          pacman -Ss binutils
+          pacman -Ss windres
           sh build.sh
 
       - name: Upload log
