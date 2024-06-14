@@ -6,6 +6,7 @@ set -e
 set -x
 
 which sed
+which make
 
 name="sasfit-tcl"
 mode="$1"
