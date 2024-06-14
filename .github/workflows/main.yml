@@ -28,10 +28,8 @@ jobs:
         run: |
           set "PATH=C:\msys64\MINGW64\bin;C:\msys64\usr\bin;%PATH%"
           echo %PATH%
-          sh -lxc "which sh"
-          sh -lxc "echo $SHELL"
-          sh -lxc "echo $PATH"
-          #sh -lc "pacman -S --noconfirm make diffutils patch mingw-w64-x86_64-gcc"
+          pacman -Q
+          :: sh -lc "pacman -S --noconfirm make diffutils patch mingw-w64-x86_64-gcc"
 
       - name: Building
         run: sh build.sh
