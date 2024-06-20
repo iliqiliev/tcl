@@ -37,15 +37,15 @@ jobs:
           (cd "$(dirname "$(which clang)")" && ln -s clang gcc && ln -s clang++ g++)
           sh build.sh
 
-      - name: Upload log
+      - name: Building non-MSYS2
+        if: ${{ ! startsWith(matrix.os, 'windows') }}
+        run: sh build.sh
+
+      - name: Upload log for debugging configure step
         if: always()
         uses: actions/upload-artifact@v4
         with:
           path: config.log
-
-      - name: Building non-MSYS2
-        if: ${{ ! startsWith(matrix.os, 'windows') }}
-        run: sh build.sh
 
       - name: Quick test
         shell: sh
