@@ -34,7 +34,7 @@ jobs:
         if: ${{ startsWith(matrix.os, 'windows') }}
         shell: msys2 {0}
         run: |
-          (cd /clang64/bin/ && ln -s clang gcc && ln -s clang++ g++)
+          (cd "$(dirname "$(which clang)")" && ln -s clang gcc && ln -s clang++ g++)
           sh build.sh
 
       - name: Upload log
