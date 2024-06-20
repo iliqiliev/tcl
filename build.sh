@@ -33,7 +33,6 @@ mkdir -p "$outdir"
 DBG_ARGS=
 if [ "$mode" = "debug" ]; then
     DBG_ARGS=--enable-symbols
-    mode="_$mode"
 fi
 
 sh "$conf" --prefix="$outdir" --enable-static --disable-shared --enable-64bit --with-pic $DBG_ARGS
@@ -41,4 +40,4 @@ sh "$conf" --prefix="$outdir" --enable-static --disable-shared --enable-64bit --
 make -j 4
 
 make install
-tar Jcf "${name}_${plat}_${arch}${mode}.tar.xz" "$name"
+tar Jcf "${name}_${plat}_${arch}_${mode}.tar.xz" "$name"
