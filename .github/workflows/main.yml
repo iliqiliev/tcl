@@ -36,6 +36,8 @@ jobs:
       - name: Building in Windows
         if: ${{ startsWith(matrix.os, 'windows') }}
         shell: msys2 {0}
+        env:
+          BUILD_MODE: ${{ matrix.mode }}
         run: |
           (cd "$(dirname "$(which clang)")" && ln -s clang gcc && ln -s clang++ g++)
           sh build.sh
@@ -49,6 +51,7 @@ jobs:
       - name: Building in Linux
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         env:
+          BUILD_MODE: ${{ matrix.mode }}
           CC: clang-15
           CXX: clang-15++
         run: sh build.sh
@@ -57,6 +60,8 @@ jobs:
 
       - name: Building in macOS
         if: ${{ startsWith(matrix.os, 'macos') }}
+        env:
+          BUILD_MODE: ${{ matrix.mode }}
         run: sh build.sh
 
 ## General ##
@@ -65,6 +70,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
+          name: config-log_${{ matrix.os }}_${{ matrix.mode }}
           path: config.log
 
       - name: Quick test
@@ -76,7 +82,7 @@ jobs:
       - name: Upload package for publishing job
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ matrix.os }}
+          name: package_${{ matrix.os }}_${{ matrix.mode }}
           path: |
               *.tar.xz
 
@@ -87,7 +93,7 @@ jobs:
       - name: Download package artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: package-*
+          pattern: package_*
           merge-multiple: true
           path: dist
 
