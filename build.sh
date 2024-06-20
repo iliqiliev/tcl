@@ -17,7 +17,7 @@ conf=
 case "$(echo $plat | cut -d_ -f1)" in
     Linux)   plat=linux;  conf=unix/configure;;
     Darwin)  plat=macos;  conf=macosx/configure;;
-    MINGW64) plat=windows;conf=win/configure;; # FIXME
+    MINGW64) plat=windows;conf=win/configure;;
 esac
 
 # path of this script
