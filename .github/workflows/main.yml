@@ -22,6 +22,8 @@ jobs:
       - name: Checking out the repo
         uses: actions/checkout@v4
 
+## Windows ##
+
       - name: Setup MSYS2 in Windows
         if: ${{ startsWith(matrix.os, 'windows') }}
         uses: msys2/setup-msys2@v2
@@ -37,13 +39,26 @@ jobs:
           (cd "$(dirname "$(which clang)")" && ln -s clang gcc && ln -s clang++ g++)
           sh build.sh
 
+## Linux/Ubuntu ##
+
       - name: Show info on Ubuntu
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: dpkg -l | grep -E ' gcc| clang'
 
-      - name: Building non-MSYS2
-        if: ${{ ! startsWith(matrix.os, 'windows') }}
+      - name: Building in Linux
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
+        env:
+          CC: clang-15
+          CXX: clang-15++
         run: sh build.sh
+
+## macOS ##
+
+      - name: Building in macOS
+        if: ${{ startsWith(matrix.os, 'macos') }}
+        run: sh build.sh
+
+## General ##
 
       - name: Upload log for debugging configure step
         if: always()
