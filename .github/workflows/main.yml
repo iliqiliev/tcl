@@ -16,7 +16,7 @@ jobs:
     # convert this to a matrix if builds differ between platforms
     strategy:
       matrix:
-        os: [ubuntu-22.04, windows-latest, macos-latest]
+        os: [ubuntu-22.04, windows-latest, macos-latest, macos-13]
         mode: [release, debug]
     runs-on: ${{ matrix.os }}
     steps:
