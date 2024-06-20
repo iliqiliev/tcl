@@ -19,8 +19,6 @@ jobs:
         os: ['ubuntu-22.04']
         mode: ['release', 'debug']
     runs-on: ${{ matrix.os }}
-    env:
-      - BUILD_MODE: ${{ matrix.mode }}
     steps:
       - name: Checking out the repo
         uses: actions/checkout@v4
@@ -51,8 +49,9 @@ jobs:
       - name: Building in Linux
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         env:
-          CC: clang-15
-          CXX: clang-15++
+          - BUILD_MODE: ${{ matrix.mode }}
+          - CC: clang-15
+          - CXX: clang-15++
         run: sh build.sh
 
 ## macOS ##
