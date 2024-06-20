@@ -27,7 +27,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         # https://github.com/msys2/setup-msys2?tab=readme-ov-file#build-matrix
         with:
-          msystem: CLANGARM64
+          msystem: CLANG64
           pacboy: make diffutils patch clang:p # gcc:p
 
       - name: Building in Windows
