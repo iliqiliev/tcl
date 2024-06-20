@@ -51,7 +51,6 @@ jobs:
       - name: Building in Linux
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         env:
-          - ${{ matrix.mode.env }}
           - CC: clang-15
           - CXX: clang-15++
         run: sh build.sh
