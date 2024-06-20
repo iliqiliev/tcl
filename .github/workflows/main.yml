@@ -21,6 +21,7 @@ jobs:
           - env: BUILD_MODE=release
           - env: BUILD_MODE=debug
     runs-on: ${{ matrix.os }}
+    env: ${{ matrix.env.BUILD_MODE }}
     steps:
       - name: Checking out the repo
         uses: actions/checkout@v4
