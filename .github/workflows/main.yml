@@ -37,6 +37,10 @@ jobs:
           (cd "$(dirname "$(which clang)")" && ln -s clang gcc && ln -s clang++ g++)
           sh build.sh
 
+      - name: Show info on Ubuntu
+        if: ${{ ! startsWith(matrix.os, 'ubuntu') }}
+        run: dpkg -l | grep -E ' gcc| clang'
+
       - name: Building non-MSYS2
         if: ${{ ! startsWith(matrix.os, 'windows') }}
         run: sh build.sh
