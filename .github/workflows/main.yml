@@ -16,7 +16,7 @@ jobs:
     # convert this to a matrix if builds differ between platforms
     strategy:
       matrix:
-        os: ['windows-latest']
+        os: ['ubuntu-22.04']
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checking out the repo
