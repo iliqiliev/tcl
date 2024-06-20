@@ -11,6 +11,7 @@ gcc --version
 
 name="sasfit-tcl"
 mode="$1"
+[ -z "$mode" ] && mode="$BUILD_MODE" # use env var if empty
 arch="$(uname -m)"
 plat="$(uname -s)"
 conf=
