@@ -16,10 +16,8 @@ jobs:
     # convert this to a matrix if builds differ between platforms
     strategy:
       matrix:
-        os: ['ubuntu-22.04']
-        mode:
-          - env: BUILD_MODE=release
-          - env: BUILD_MODE=debug
+        os: [ubuntu-22.04,]
+        mode: [release, debug]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checking out the repo
