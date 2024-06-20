@@ -20,8 +20,8 @@ case "$(echo $plat | cut -d_ -f1)" in
     MINGW64) plat=windows;conf=win/configure;;
 esac
 
-[ -z "$CC" ] || "Using CC=$CC"
-[ -z "$CXX" ] || "Using CC=$CXX"
+[ -z "$CC" ] || echo "Using CC=$CC"
+[ -z "$CXX" ] || echo "Using CC=$CXX"
 
 # path of this script
 scriptdir="$(cd "$(dirname "$0")" && pwd -P)"
