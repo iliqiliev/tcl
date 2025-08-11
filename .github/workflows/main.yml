@@ -24,9 +24,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set TAG_NAME env var
+        shell: sh
         run: echo "TAG_NAME=${GITHUB_REF_NAME}" >> $GITHUB_ENV
 
       - name: Set PKG_NAME env var
+        shell: sh
         run: echo "PKG_NAME=tcl" >> $GITHUB_ENV
 
 ## Windows ##
