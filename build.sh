@@ -9,7 +9,7 @@ uname -a
 for bin in make gcc clang ld ar ranlib windres; do which $bin || true; done
 gcc --version
 
-name="sasfit-tcl"
+name="tcl"
 mode="$1"
 [ -z "$mode" ] && mode="$BUILD_MODE" # use env var if empty
 arch="$(uname -m)"
@@ -40,4 +40,5 @@ sh "$conf" --prefix="$outdir" --enable-static --disable-shared --enable-64bit --
 make -j 4
 
 make install
-tar Jcf "${name}_${plat}_${arch}_${mode}.tar.xz" "$name"
+[ -z "$TCLVER" ] || ver="-$TCLVER"
+tar Jcf "${name}${ver}_${plat}_${arch}_${mode}.tar.xz" "$name"
