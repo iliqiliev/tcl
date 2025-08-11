@@ -31,7 +31,8 @@ jobs:
         # https://github.com/msys2/setup-msys2?tab=readme-ov-file#build-matrix
         with:
           msystem: CLANG64
-          pacboy: make diffutils patch clang:p # gcc:p
+          pacboy: |
+            make: diffutils: patch: clang
 
       - name: Building in Windows
         if: ${{ startsWith(matrix.os, 'windows') }}
