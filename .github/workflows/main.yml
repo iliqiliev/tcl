@@ -26,6 +26,9 @@ jobs:
       - name: Set TAG_NAME env var
         run: echo "TAG_NAME=${GITHUB_REF_NAME}" >> $GITHUB_ENV
 
+      - name: Set PKG_NAME env var
+        run: echo "PKG_NAME=tcl" >> $GITHUB_ENV
+
 ## Windows ##
 
       - name: Setup MSYS2 in Windows
@@ -80,7 +83,7 @@ jobs:
       - name: Quick test
         shell: sh
         run: |
-            TCLSH=$(find ./sasfit-tcl/bin/ -type f -name 'tclsh8.4*')
+            TCLSH=$(find ./$PKG_NAME/bin/ -type f -name 'tclsh8.4*')
             echo "puts hello_world; exit;" | $TCLSH
 
       - name: Upload package for publishing job

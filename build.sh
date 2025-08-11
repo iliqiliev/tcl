@@ -9,7 +9,8 @@ uname -a
 for bin in make gcc clang ld ar ranlib windres; do which $bin || true; done
 gcc --version
 
-name="tcl"
+pkgname="tcl"
+[ -z "$PKG_NAME" ] || pkgname="$PKG_NAME"
 mode="$1"
 [ -z "$mode" ] && mode="$BUILD_MODE" # use env var if empty
 arch="$(uname -m)"
@@ -27,7 +28,7 @@ esac
 # path of this script
 scriptdir="$(cd "$(dirname "$0")" && pwd -P)"
 # output dir
-outdir="$scriptdir/$name"
+outdir="$scriptdir/$pkgname"
 mkdir -p "$outdir"
 # add debug symbols?
 DBG_ARGS=
@@ -41,4 +42,4 @@ make -j 4
 
 make install
 [ -z "$TAG_NAME" ] || ver="-$TAG_NAME"
-tar Jcf "${name}${ver}_${plat}_${arch}_${mode}.tar.xz" "$name"
+tar Jcf "${pkgname}${ver}_${plat}_${arch}_${mode}.tar.xz" "$pkgname"
