@@ -40,5 +40,5 @@ sh "$conf" --prefix="$outdir" --enable-static --disable-shared --enable-64bit --
 make -j 4
 
 make install
-[ -z "$TCLVER" ] || ver="-$TCLVER"
+[ -z "$TAG_NAME" ] || ver="-$TAG_NAME"
 tar Jcf "${name}${ver}_${plat}_${arch}_${mode}.tar.xz" "$name"
