@@ -23,6 +23,9 @@ jobs:
       - name: Checking out the repo
         uses: actions/checkout@v4
 
+      - name: Set TAG_NAME env var
+        run: echo "TAG_NAME=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+
 ## Windows ##
 
       - name: Setup MSYS2 in Windows
@@ -41,7 +44,7 @@ jobs:
           BUILD_MODE: ${{ matrix.mode }}
         run: |
           (cd "$(dirname "$(which clang)")" && ln -s clang gcc && ln -s clang++ g++)
-          sh build.sh
+          sh build.sh "$TAG_NAME"
 
 ## Linux/Ubuntu ##
 
@@ -55,7 +58,7 @@ jobs:
           BUILD_MODE: ${{ matrix.mode }}
           CC: clang-15
           CXX: clang-15++
-        run: sh build.sh
+        run: sh build.sh "$TAG_NAME"
 
 ## macOS ##
 
@@ -63,7 +66,7 @@ jobs:
         if: ${{ startsWith(matrix.os, 'macos') }}
         env:
           BUILD_MODE: ${{ matrix.mode }}
-        run: sh build.sh
+        run: sh build.sh "$TAG_NAME"
 
 ## General ##
 
