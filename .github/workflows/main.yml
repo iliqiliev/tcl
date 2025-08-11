@@ -44,7 +44,7 @@ jobs:
           BUILD_MODE: ${{ matrix.mode }}
         run: |
           (cd "$(dirname "$(which clang)")" && ln -s clang gcc && ln -s clang++ g++)
-          sh build.sh "$TAG_NAME"
+          sh build.sh
 
 ## Linux/Ubuntu ##
 
@@ -58,7 +58,7 @@ jobs:
           BUILD_MODE: ${{ matrix.mode }}
           CC: clang-15
           CXX: clang-15++
-        run: sh build.sh "$TAG_NAME"
+        run: sh build.sh
 
 ## macOS ##
 
@@ -66,7 +66,7 @@ jobs:
         if: ${{ startsWith(matrix.os, 'macos') }}
         env:
           BUILD_MODE: ${{ matrix.mode }}
-        run: sh build.sh "$TAG_NAME"
+        run: sh build.sh
 
 ## General ##
 
