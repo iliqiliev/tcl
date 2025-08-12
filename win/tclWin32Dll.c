@@ -1071,6 +1071,7 @@ TclWinCPUID(
 {
     int status = TCL_ERROR;
 
+#if !defined(__aarch64__) && !defined(__arm__)
 #if defined(__GNUC__)
 #   if defined(_WIN64)
     /*
@@ -1247,6 +1248,7 @@ TclWinCPUID(
      * architecture.
      */
 #endif
+#endif // NOT (__aarch64__ && __arm__)
     return status;
 }
 
