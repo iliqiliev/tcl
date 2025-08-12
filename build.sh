@@ -7,13 +7,14 @@ set -x
 
 uname -a
 for bin in make gcc clang ld ar ranlib windres; do which $bin || true; done
-gcc --version
+clang --version
 
 pkgname="tcl"
 [ -z "$PKG_NAME" ] || pkgname="$PKG_NAME"
 mode="$1"
 [ -z "$mode" ] && mode="$BUILD_MODE" # use env var if empty
-arch="$(uname -m)"
+#arch="$(uname -m)"
+arch="$(clang --version | awk '/Target/{ print $2 }' | awk -F- '{print $1}')"
 plat="$(uname -s)"
 conf=
 case "$(echo $plat | cut -d_ -f1)" in
