@@ -21,7 +21,7 @@ jobs:
           - ubuntu-22.04
           - ubuntu-22.04-arm
           - windows-2022
-          - windows-11-arm,
+          - windows-11-arm
           - macos-14
           - macos-13
         mode: [release, debug]
