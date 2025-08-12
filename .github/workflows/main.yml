@@ -40,10 +40,17 @@ jobs:
 
 ## Windows ##
 
-      - name: Setup MSYS2 in Windows
-        if: ${{ startsWith(matrix.os, 'windows') }}
+      - name: Setup MSYS2 in Windows (arm64)
+        if: ${{ matrix.os == 'windows-11-arm') }}
         uses: msys2/setup-msys2@v2
-        # https://github.com/msys2/setup-msys2?tab=readme-ov-file#build-matrix
+        with:
+          msystem: CLANGARM64
+          pacboy: |
+            make: diffutils: patch: clang
+
+      - name: Setup MSYS2 in Windows (x86)
+        if: ${{ matrix.os == 'windows-2022') }}
+        uses: msys2/setup-msys2@v2
         with:
           msystem: CLANG64
           pacboy: |
