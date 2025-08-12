@@ -41,7 +41,7 @@ jobs:
 ## Windows ##
 
       - name: Setup MSYS2 in Windows (arm64)
-        if: ${{ matrix.os == 'windows-11-arm') }}
+        if: ${{ matrix.os == 'windows-11-arm' }}
         uses: msys2/setup-msys2@v2
         with:
           msystem: CLANGARM64
@@ -49,7 +49,7 @@ jobs:
             make: diffutils: patch: clang
 
       - name: Setup MSYS2 in Windows (x86)
-        if: ${{ matrix.os == 'windows-2022') }}
+        if: ${{ matrix.os == 'windows-2022' }}
         uses: msys2/setup-msys2@v2
         with:
           msystem: CLANG64
