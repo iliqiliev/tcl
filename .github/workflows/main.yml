@@ -1,117 +1,68 @@
-name: build & package
+name: build & package (win32 release)
 
-# Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [main]
     tags: ['v*.*.*']
   pull_request:
     branches: [main]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   Build:
-    # convert this to a matrix if builds differ between platforms
     strategy:
       matrix:
-        os:
-          - ubuntu-22.04
-          - ubuntu-22.04-arm
-          - windows-2022
-          - windows-11-arm
-          - macos-14
-          - macos-13
-        mode: [release, debug]
+        os: [windows-2022]   # only Windows host
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checking out the repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set TAG_NAME env var
-        shell: sh
+        shell: bash
         run: echo "TAG_NAME=${GITHUB_REF_NAME}" >> $GITHUB_ENV
 
       - name: Set PKG_NAME env var
-        shell: sh
+        shell: bash
         run: echo "PKG_NAME=tcl" >> $GITHUB_ENV
 
-## Windows ##
-
-      - name: Setup MSYS2 in Windows (arm64)
-        if: ${{ matrix.os == 'windows-11-arm' }}
+      - name: Setup MSYS2 in Windows (mingw32)
         uses: msys2/setup-msys2@v2
         with:
-          msystem: CLANGARM64
+          msystem: MINGW32
           pacboy: |
-            make: diffutils: patch: clang
+            make: diffutils: patch: gcc
 
-      - name: Setup MSYS2 in Windows (x86)
-        if: ${{ matrix.os == 'windows-2022' }}
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: CLANG64
-          pacboy: |
-            make: diffutils: patch: clang
-
-      - name: Building in Windows
-        if: ${{ startsWith(matrix.os, 'windows') }}
+      - name: Build in Windows (mingw32, release)
         shell: msys2 {0}
         env:
-          BUILD_MODE: ${{ matrix.mode }}
+          BUILD_MODE: release
         run: |
-          (cd "$(dirname "$(which clang)")" && ln -s clang gcc && ln -s clang++ g++)
           sh build.sh
-
-## Linux/Ubuntu ##
-
-      - name: Show info on Ubuntu
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        run: dpkg -l | grep -E ' gcc| clang'
-
-      - name: Building in Linux
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        env:
-          BUILD_MODE: ${{ matrix.mode }}
-          CC: clang-15
-          CXX: clang-15++
-        run: sh build.sh
-
-## macOS ##
-
-      - name: Building in macOS
-        if: ${{ startsWith(matrix.os, 'macos') }}
-        env:
-          BUILD_MODE: ${{ matrix.mode }}
-        run: sh build.sh
-
-## General ##
 
       - name: Upload log for debugging configure step
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: config-log_${{ matrix.os }}_${{ matrix.mode }}
+          name: config-log_win32_release
           path: config.log
 
       - name: Quick test
-        shell: sh
+        shell: msys2 {0}
         run: |
-            TCLSH=$(find ./$PKG_NAME/bin/ -type f -name 'tclsh8.4*')
-            echo "puts hello_world; exit;" | $TCLSH
+          TCLSH=$(find ./$PKG_NAME/bin/ -type f -name 'tclsh8.4*')
+          echo "puts hello_world; exit;" | $TCLSH
 
       - name: Upload package for publishing job
         uses: actions/upload-artifact@v4
         with:
-          name: package_${{ matrix.os }}_${{ matrix.mode }}
+          name: package_win32_release
           path: |
-              *.tar.xz
+            *.tar.xz
 
   Publish:
     needs: [Build]
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     steps:
       - name: Download package artifacts
         uses: actions/download-artifact@v4
